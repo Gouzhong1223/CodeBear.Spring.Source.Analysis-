@@ -55,15 +55,15 @@ final class PostProcessorRegistrationDelegate {
 		// Invoke BeanDefinitionRegistryPostProcessors first, if any.
 		Set<String> processedBeans = new HashSet<>();
 
-		//beanFactory是DefaultListableBeanFactory，是BeanDefinitionRegistry的实现类，所以肯定满足if
+		// beanFactory是DefaultListableBeanFactory，是BeanDefinitionRegistry的实现类，所以肯定满足if
 		if (beanFactory instanceof BeanDefinitionRegistry) {
 			BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
 
-			//regularPostProcessors 用来存放BeanFactoryPostProcessor，
+			// regularPostProcessors 用来存放BeanFactoryPostProcessor，
 			List<BeanFactoryPostProcessor> regularPostProcessors = new ArrayList<>();
 
-			//registryProcessors 用来存放BeanDefinitionRegistryPostProcessor
-			//BeanDefinitionRegistryPostProcessor扩展了BeanFactoryPostProcessor
+			// registryProcessors 用来存放BeanDefinitionRegistryPostProcessor
+			// BeanDefinitionRegistryPostProcessor扩展了BeanFactoryPostProcessor
 			List<BeanDefinitionRegistryPostProcessor> registryProcessors = new ArrayList<>();
 
 			// 循环传进来的beanFactoryPostProcessors，正常情况下，beanFactoryPostProcessors肯定没有数据
@@ -80,7 +80,7 @@ final class PostProcessorRegistrationDelegate {
 					registryProcessors.add(registryProcessor);
 				}
 
-				else {//不是的话，就装到regularPostProcessors
+				else {// 不是的话，就装到regularPostProcessors
 					regularPostProcessors.add(postProcessor);
 				}
 			}
@@ -89,8 +89,8 @@ final class PostProcessorRegistrationDelegate {
 			// uninitialized to let the bean factory post-processors apply to them!
 			// Separate between BeanDefinitionRegistryPostProcessors that implement
 			// PriorityOrdered, Ordered, and the rest.
-			//一个临时变量，用来装载BeanDefinitionRegistryPostProcessor
-			//BeanDefinitionRegistry继承了PostProcessorBeanFactoryPostProcessor
+			// 一个临时变量，用来装载BeanDefinitionRegistryPostProcessor
+			// BeanDefinitionRegistry继承了PostProcessorBeanFactoryPostProcessor
 			List<BeanDefinitionRegistryPostProcessor> currentRegistryProcessors = new ArrayList<>();
 
 			// First, invoke the BeanDefinitionRegistryPostProcessors that implement PriorityOrdered.
