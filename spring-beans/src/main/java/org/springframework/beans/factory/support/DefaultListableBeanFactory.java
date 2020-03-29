@@ -857,12 +857,16 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 							"] with [" + beanDefinition + "]");
 				}
 			}
+			// 确保一切正常之后，在beanDefinitionMap中更新beanDefinition
 			this.beanDefinitionMap.put(beanName, beanDefinition);
 		} else {
+			// 以下操作是之前没有在beanDefinitionMap中注册过
 			if (hasBeanCreationStarted()) {
 				// Cannot modify startup-time collection elements anymore (for stable iteration)
 				synchronized (this.beanDefinitionMap) {
+					// 开始注册
 					this.beanDefinitionMap.put(beanName, beanDefinition);
+					// 将 beanName 单独写入一个 ArrayList 中，在判断 bean 是否懒加载的时候会用到
 					List<String> updatedDefinitions = new ArrayList<>(this.beanDefinitionNames.size() + 1);
 					updatedDefinitions.addAll(this.beanDefinitionNames);
 					updatedDefinitions.add(beanName);
